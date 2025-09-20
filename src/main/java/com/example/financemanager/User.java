@@ -2,12 +2,18 @@ package com.example.financemanager;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @OneToMany(mappedBy = "user") // One user has many transactions
+    private List<Transaction> transactions = new ArrayList<>();
 
     private String username;
     private String email;
@@ -26,6 +32,10 @@ public class User {
 
     public long getId() {
         return id;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
     public String getUsername() {
