@@ -15,12 +15,20 @@ public class AuthController {
     private UserService userService;
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Principal principal) {
+        // If already logged in, redirect to dashboard
+        if (principal != null) {
+            return "redirect:/dashboard";
+        }
         return "login";
     }
 
     @GetMapping("/register")
-    public String register() {
+    public String register(Principal principal) {
+        // If already logged in, redirect to dashboard
+        if (principal != null) {
+            return "redirect:/dashboard";
+        }
         return "register";
     }
 
