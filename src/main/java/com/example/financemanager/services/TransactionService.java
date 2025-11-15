@@ -1,10 +1,13 @@
-package com.example.financemanager;
+package com.example.financemanager.services;
 
+import com.example.financemanager.repositories.UserRepository;
+import com.example.financemanager.entities.Transaction;
+import com.example.financemanager.entities.User;
+import com.example.financemanager.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
 

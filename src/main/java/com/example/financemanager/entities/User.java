@@ -1,4 +1,4 @@
-package com.example.financemanager;
+package com.example.financemanager.entities;
 
 import jakarta.persistence.*;
 

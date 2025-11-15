@@ -1,5 +1,9 @@
-package com.example.financemanager;
+package com.example.financemanager.config;
 
+import com.example.financemanager.entities.Transaction;
+import com.example.financemanager.entities.User;
+import com.example.financemanager.repositories.TransactionRepository;
+import com.example.financemanager.repositories.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

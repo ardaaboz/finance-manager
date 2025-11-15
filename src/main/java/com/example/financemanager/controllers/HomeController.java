@@ -1,4 +1,4 @@
-package com.example.financemanager;
+package com.example.financemanager.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,9 +1,8 @@
-package com.example.financemanager;
+package com.example.financemanager.entities;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

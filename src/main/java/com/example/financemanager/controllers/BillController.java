@@ -1,5 +1,7 @@
-package com.example.financemanager;
+package com.example.financemanager.controllers;
 
+import com.example.financemanager.entities.Transaction;
+import com.example.financemanager.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

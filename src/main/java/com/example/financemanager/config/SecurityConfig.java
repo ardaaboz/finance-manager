@@ -1,4 +1,4 @@
-package com.example.financemanager;
+package com.example.financemanager.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
