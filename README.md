@@ -67,7 +67,8 @@ finance-manager/
 │   ├── controllers/
 │   ├── services/
 │   ├── repositories/
-│   └── entities/
+│   ├── entities/
+│   └── config/
 ├── src/main/resources/
 │   ├── templates/
 │   └── application.properties
