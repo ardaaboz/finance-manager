@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Transaction - Finance Manager</title>
+    <th:block th:replace="~{fragments :: head}"></th:block>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav th:replace="~{fragments :: navbar}"></nav>
+    
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0"><i class="bi bi-pencil"></i> Edit Transaction</h4>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/edit-transaction}" method="post">
+                            <!-- Hidden field for transaction ID -->
+                            <input type="hidden" name="id" th:value="${transaction.id}">
+                            
+                            <div class="mb-3">
+                                <label for="description" class="form-label">
+                                    <i class="bi bi-text-left"></i> Description
+                                </label>
+                                <input type="text" class="form-control" id="description" 
+                                       name="description" th:value="${transaction.description}" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="amount" class="form-label">
+                                    <i class="bi bi-currency-dollar"></i> Amount
+                                </label>
+                                <input type="number" class="form-control" id="amount" 
+                                       name="amount" step="0.01" min="0" 
+                                       th:value="${transaction.amount}" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="type" class="form-label">
+                                    <i class="bi bi-arrow-left-right"></i> Type
+                                </label>
+                                <select id="type" name="type" class="form-select" required>
+                                    <option value="INCOME" th:selected="${transaction.type == 'INCOME'}">Income</option>
+                                    <option value="EXPENSE" th:selected="${transaction.type == 'EXPENSE'}">Expense</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="category" class="form-label">
+                                    <i class="bi bi-tag"></i> Category
+                                </label>
+                                <select id="category" name="category" class="form-select" required>
+                                    <option value="Salary" th:selected="${transaction.category == 'Salary'}">Salary</option>
+                                    <option value="Freelance" th:selected="${transaction.category == 'Freelance'}">Freelance</option>
+                                    <option value="Investment" th:selected="${transaction.category == 'Investment'}">Investment</option>
+                                    <option value="Food" th:selected="${transaction.category == 'Food'}">Food</option>
+                                    <option value="Rent" th:selected="${transaction.category == 'Rent'}">Rent</option>
+                                    <option value="Utilities" th:selected="${transaction.category == 'Utilities'}">Utilities</option>
+                                    <option value="Entertainment" th:selected="${transaction.category == 'Entertainment'}">Entertainment</option>
+                                    <option value="Transportation" th:selected="${transaction.category == 'Transportation'}">Transportation</option>
+                                    <option value="Healthcare" th:selected="${transaction.category == 'Healthcare'}">Healthcare</option>
+                                    <option value="Other" th:selected="${transaction.category == 'Other'}">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="isRecurring" 
+                                       name="isRecurring" th:checked="${transaction.recurring}" 
+                                       onchange="toggleRecurringFields()">
+                                <label class="form-check-label" for="isRecurring">
+                                    <i class="bi bi-arrow-repeat"></i> This is a recurring payment
+                                </label>
+                            </div>
+                            
+                            <div id="recurringFields" th:style="${transaction.recurring} ? 'display:block' : 'display:none'">
+                                <div class="mb-3">
+                                    <label for="dayOfMonth" class="form-label">
+                                        <i class="bi bi-calendar-day"></i> Due date (day of month)
+                                    </label>
+                                    <input type="number" class="form-control" id="dayOfMonth" 
+                                           name="dayOfMonth" min="1" max="31" 
+                                           th:value="${transaction.dayOfMonth}">
+                                    <small class="form-text text-muted">Enter a day between 1-31</small>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-check-circle"></i> Update Transaction
+                                </button>
+                                <a href="/dashboard" class="btn btn-secondary">
+                                    <i class="bi bi-x-circle"></i> Cancel
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleRecurringFields() {
+            const isRecurring = document.getElementById('isRecurring').checked;
+            const recurringFields = document.getElementById('recurringFields');
+            const dayOfMonthInput = document.getElementById('dayOfMonth');
+            
+            if (isRecurring) {
+                recurringFields.style.display = 'block';
+                dayOfMonthInput.required = true;
+            } else {
+                recurringFields.style.display = 'none';
+                dayOfMonthInput.required = false;
+            }
+        }
+    </script>
+    
+    <!-- Scripts -->
+    <div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>
