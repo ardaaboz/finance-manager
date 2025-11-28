@@ -32,50 +32,61 @@
 </head>
 <body>
     <div class="container">
-        <div class="brand-title">
-            <h1><i class="bi bi-cash-coin"></i> Finance Manager</h1>
-            <p>Start managing your business finances today</p>
+        <!-- Language Selector -->
+        <div class="text-center mb-3">
+            <form method="post" th:action="@{/change-language}" style="display:inline;">
+                <select name="lang" onchange="this.form.submit()" class="form-select d-inline-block w-auto" style="background-color: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);">
+                    <option value="en" th:selected="${#locale.toString() == 'en'}">English</option>
+                    <option value="tr" th:selected="${#locale.toString() == 'tr'}">Türkçe</option>
+                </select>
+            </form>
         </div>
-        
+
+        <div class="brand-title">
+            <h1><i class="bi bi-cash-coin"></i> <span th:text="#{app.title}">Finance Manager</span></h1>
+            <p th:text="#{app.subtitle}">Start managing your business finances today</p>
+        </div>
+
         <div class="register-card">
             <div class="card">
                 <div class="card-body p-5">
-                    <h3 class="card-title text-center mb-4">Create Account</h3>
-                    
+                    <h3 class="card-title text-center mb-4" th:text="#{register.title}">Create Account</h3>
+
                     <form th:action="@{/register}" method="post">
                         <div class="mb-3">
                             <label for="username" class="form-label">
-                                <i class="bi bi-person"></i> Username
+                                <i class="bi bi-person"></i> <span th:text="#{register.username}">Username</span>
                             </label>
-                            <input type="text" class="form-control" id="username" 
-                                   name="username" placeholder="Choose a username" required>
+                            <input type="text" class="form-control" id="username"
+                                   name="username" th:placeholder="#{register.username}" required>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="email" class="form-label">
-                                <i class="bi bi-envelope"></i> Email
+                                <i class="bi bi-envelope"></i> <span th:text="#{register.email}">Email</span>
                             </label>
-                            <input type="email" class="form-control" id="email" 
-                                   name="email" placeholder="your.email@example.com" required>
+                            <input type="email" class="form-control" id="email"
+                                   name="email" th:placeholder="#{register.email}" required>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="password" class="form-label">
-                                <i class="bi bi-lock"></i> Password
+                                <i class="bi bi-lock"></i> <span th:text="#{register.password}">Password</span>
                             </label>
-                            <input type="password" class="form-control" id="password" 
-                                   name="password" placeholder="Create a strong password" required>
+                            <input type="password" class="form-control" id="password"
+                                   name="password" th:placeholder="#{register.password}" required>
                         </div>
-                        
+
                         <div class="d-grid mb-3">
                             <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="bi bi-person-plus"></i> Register
+                                <i class="bi bi-person-plus"></i> <span th:text="#{register.submit}">Register</span>
                             </button>
                         </div>
-                        
+
                         <div class="text-center">
-                            <p class="mb-0">Already have an account? 
-                                <a href="/login" class="text-decoration-none">Login here</a>
+                            <p class="mb-0" th:inline="text">
+                                [[#{register.hasAccount}]]
+                                <a href="/login" class="text-decoration-none" th:text="#{register.login}">Login here</a>
                             </p>
                         </div>
                     </form>

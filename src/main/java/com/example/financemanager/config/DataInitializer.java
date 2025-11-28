@@ -5,6 +5,8 @@ import com.example.financemanager.entities.User;
 import com.example.financemanager.repositories.TransactionRepository;
 import com.example.financemanager.repositories.UserRepository;
 import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,7 @@ import java.time.LocalDate;
 
 @Component
 public class DataInitializer {
+    private static final Logger log = LoggerFactory.getLogger(DataInitializer.class);
     @Autowired
     private UserRepository userRepository;
 
@@ -23,10 +26,10 @@ public class DataInitializer {
     private PasswordEncoder passwordEncoder;
 
     @PostConstruct
-    public void InitializeData() {
+    public void initializeData() {
         // Only initialize if no users exist (prevent duplicates on restart)
         if (userRepository.count() > 0) {
-            System.out.println("Data already exists, skipping initialization");
+            log.info("Data already exists, skipping initialization");
             return;
         }
 
@@ -79,9 +82,9 @@ public class DataInitializer {
         transactionRepository.save(maryGym);
         transactionRepository.save(maryBorrowedMoney);
 
-        System.out.println("✅ Sample data created successfully!");
-        System.out.println("📧 Test users:");
-        System.out.println("   - john / password123");
-        System.out.println("   - mary / password456");
+        log.info("Sample data created successfully!");
+        log.info("Test users created:");
+        log.info("   - john / password123");
+        log.info("   - mary / password456");
     }
 }

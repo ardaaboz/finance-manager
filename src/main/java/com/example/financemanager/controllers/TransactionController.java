@@ -5,14 +5,19 @@ import java.time.LocalDate;
 
 import com.example.financemanager.entities.Transaction;
 import com.example.financemanager.services.TransactionService;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@Validated
 public class TransactionController {
     @Autowired
     private TransactionService transactionService;
@@ -23,10 +28,10 @@ public class TransactionController {
     }
 
     @PostMapping("/add-transaction")
-    public String addTransaction(@RequestParam String description,
-                                 @RequestParam double amount,
-                                 @RequestParam String type,
-                                 @RequestParam String category,
+    public String addTransaction(@RequestParam @NotBlank(message = "Description is required") String description,
+                                 @RequestParam @Positive(message = "Amount must be greater than 0") double amount,
+                                 @RequestParam @NotBlank(message = "Type is required") String type,
+                                 @RequestParam @NotBlank(message = "Category is required") String category,
                                  @RequestParam(required = false) Boolean isRecurring,
                                  @RequestParam(required = false) Integer dayOfMonth,
                                  @RequestParam(required = false) String dueDate,
@@ -84,10 +89,10 @@ public class TransactionController {
 
     @PostMapping("/edit-transaction")
     public String editTransaction(@RequestParam Long id,
-                                  @RequestParam String description,
-                                  @RequestParam double amount,
-                                  @RequestParam String type,
-                                  @RequestParam String category,
+                                  @RequestParam @NotBlank(message = "Description is required") String description,
+                                  @RequestParam @Positive(message = "Amount must be greater than 0") double amount,
+                                  @RequestParam @NotBlank(message = "Type is required") String type,
+                                  @RequestParam @NotBlank(message = "Category is required") String category,
                                   @RequestParam(required = false) Boolean isRecurring,
                                   @RequestParam(required = false) Integer dayOfMonth,
                                   Principal principal) {

@@ -8,6 +8,22 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Repository interface for Transaction entity data access.
+ * Provides CRUD operations and custom query methods for filtering transactions.
+ *
+ * <p>Supports queries for:</p>
+ * <ul>
+ *   <li>All transactions by user</li>
+ *   <li>Filtering by type (INCOME/EXPENSE) and category</li>
+ *   <li>Recurring bills with various payment statuses</li>
+ *   <li>Date-based filtering for upcoming bills</li>
+ * </ul>
+ *
+ * @author Finance Manager Team
+ * @version 1.0
+ * @since 2025-01-28
+ */
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     List<Transaction> findByUser(User user);

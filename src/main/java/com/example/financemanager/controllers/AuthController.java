@@ -1,8 +1,12 @@
 package com.example.financemanager.controllers;
 
 import com.example.financemanager.services.UserService;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.security.Principal;
 
 @Controller
+@Validated
 public class AuthController {
 
     @Autowired
@@ -34,9 +39,15 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestParam String username,
-                               @RequestParam String email,
-                               @RequestParam String password) {
+    public String registerUser(@RequestParam @NotBlank(message = "Username is required")
+                               @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
+                               String username,
+                               @RequestParam @NotBlank(message = "Email is required")
+                               @Email(message = "Please provide a valid email address")
+                               String email,
+                               @RequestParam @NotBlank(message = "Password is required")
+                               @Size(min = 6, message = "Password must be at least 6 characters long")
+                               String password) {
         userService.createUser(username, email, password);
         return "redirect:/login";
     }

@@ -32,42 +32,53 @@
 </head>
 <body>
     <div class="container">
-        <div class="brand-title">
-            <h1><i class="bi bi-cash-coin"></i> Finance Manager</h1>
-            <p>Manage your business finances with ease</p>
+        <!-- Language Selector -->
+        <div class="text-center mb-3">
+            <form method="post" th:action="@{/change-language}" style="display:inline;">
+                <select name="lang" onchange="this.form.submit()" class="form-select d-inline-block w-auto" style="background-color: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);">
+                    <option value="en" th:selected="${#locale.toString() == 'en'}">English</option>
+                    <option value="tr" th:selected="${#locale.toString() == 'tr'}">Türkçe</option>
+                </select>
+            </form>
         </div>
-        
+
+        <div class="brand-title">
+            <h1><i class="bi bi-cash-coin"></i> <span th:text="#{app.title}">Finance Manager</span></h1>
+            <p th:text="#{app.subtitle}">Manage your business finances with ease</p>
+        </div>
+
         <div class="login-card">
             <div class="card">
                 <div class="card-body p-5">
-                    <h3 class="card-title text-center mb-4">Welcome Back</h3>
-                    
+                    <h3 class="card-title text-center mb-4" th:text="#{login.title}">Welcome Back</h3>
+
                     <form th:action="@{/login}" method="post">
                         <div class="mb-3">
                             <label for="username" class="form-label">
-                                <i class="bi bi-person"></i> Username
+                                <i class="bi bi-person"></i> <span th:text="#{login.username}">Username</span>
                             </label>
-                            <input type="text" class="form-control" id="username" 
-                                   name="username" placeholder="Enter your username" required>
+                            <input type="text" class="form-control" id="username"
+                                   name="username" th:placeholder="#{login.username}" required>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="password" class="form-label">
-                                <i class="bi bi-lock"></i> Password
+                                <i class="bi bi-lock"></i> <span th:text="#{login.password}">Password</span>
                             </label>
-                            <input type="password" class="form-control" id="password" 
-                                   name="password" placeholder="Enter your password" required>
+                            <input type="password" class="form-control" id="password"
+                                   name="password" th:placeholder="#{login.password}" required>
                         </div>
-                        
+
                         <div class="d-grid mb-3">
                             <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="bi bi-box-arrow-in-right"></i> Login
+                                <i class="bi bi-box-arrow-in-right"></i> <span th:text="#{login.submit}">Login</span>
                             </button>
                         </div>
-                        
+
                         <div class="text-center">
-                            <p class="mb-0">Don't have an account? 
-                                <a href="/register" class="text-decoration-none">Register here</a>
+                            <p class="mb-0" th:inline="text">
+                                [[#{login.noAccount}]]
+                                <a href="/register" class="text-decoration-none" th:text="#{login.register}">Register here</a>
                             </p>
                         </div>
                     </form>
