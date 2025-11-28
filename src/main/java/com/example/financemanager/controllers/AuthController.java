@@ -3,6 +3,7 @@ package com.example.financemanager.controllers;
 import com.example.financemanager.services.UserService;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,7 +47,8 @@ public class AuthController {
                                @Email(message = "Please provide a valid email address")
                                String email,
                                @RequestParam @NotBlank(message = "Password is required")
-                               @Size(min = 6, message = "Password must be at least 6 characters long")
+                               @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!?*])(?=\\S+$).{8,}$",
+                                       message = "Password must be at least 8 characters and contain uppercase, lowercase, and a symbol")
                                String password) {
         userService.createUser(username, email, password);
         return "redirect:/login";
