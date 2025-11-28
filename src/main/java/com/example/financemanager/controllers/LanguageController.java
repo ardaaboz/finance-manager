@@ -2,7 +2,9 @@ package com.example.financemanager.controllers;
 
 import com.example.financemanager.entities.User;
 import com.example.financemanager.repositories.UserRepository;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,20 +34,29 @@ public class LanguageController {
 
     /**
      * Handles language change requests.
-     * Updates both the session locale and the user's preferred language in the database.
+     * Updates session locale, user's database preference, and browser cookie.
      *
      * @param lang the language code (en for English, tr for Turkish)
      * @param request the HTTP servlet request
+     * @param response the HTTP servlet response
      * @param principal the authenticated user principal
      * @return redirect to the referer page or dashboard if referer is not available
      */
     @PostMapping("/change-language")
     public String changeLanguage(@RequestParam String lang,
                                   HttpServletRequest request,
+                                  HttpServletResponse response,
                                   Principal principal) {
         // Set locale in session
         Locale locale = "tr".equals(lang) ? new Locale("tr") : Locale.ENGLISH;
-        localeResolver.setLocale(request, null, locale);
+        localeResolver.setLocale(request, response, locale);
+
+        // Create a cookie to remember language preference in browser (30 days)
+        Cookie languageCookie = new Cookie("preferredLanguage", lang);
+        languageCookie.setMaxAge(30 * 24 * 60 * 60); // 30 days in seconds
+        languageCookie.setPath("/");
+        languageCookie.setHttpOnly(false); // Allow JavaScript access for localStorage sync
+        response.addCookie(languageCookie);
 
         // Update user's preferred language in database if user is logged in
         if (principal != null) {

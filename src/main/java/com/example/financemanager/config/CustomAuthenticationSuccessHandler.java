@@ -3,6 +3,7 @@ package com.example.financemanager.config;
 import com.example.financemanager.entities.User;
 import com.example.financemanager.repositories.UserRepository;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     /**
      * Called when a user successfully authenticates.
-     * Loads the user's preferred language from database and sets it in the session.
+     * Loads the user's preferred language from cookie, database, or session.
+     * Priority: Browser Cookie > Current Session > Database Preference > Default (en)
      *
      * @param request the request which caused the successful authentication
      * @param response the response
@@ -54,13 +56,46 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         // Load user from database
         User user = userRepository.findByUsername(username);
 
-        // Set locale based on user's preferred language
-        if (user != null && user.getPreferredLanguage() != null) {
-            Locale locale = "tr".equals(user.getPreferredLanguage())
-                    ? new Locale("tr")
-                    : Locale.ENGLISH;
-            localeResolver.setLocale(request, response, locale);
+        // Check for language preference in this order:
+        // 1. Browser cookie (most recent user choice)
+        // 2. Current session locale (what they just selected on login page)
+        // 3. Database preference
+        // 4. Default to English
+
+        String preferredLang = null;
+
+        // Check cookie first
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("preferredLanguage".equals(cookie.getName())) {
+                    preferredLang = cookie.getValue();
+                    break;
+                }
+            }
         }
+
+        // If no cookie, check current session locale
+        if (preferredLang == null) {
+            Locale currentLocale = localeResolver.resolveLocale(request);
+            if (currentLocale != null && "tr".equals(currentLocale.getLanguage())) {
+                preferredLang = "tr";
+            }
+        }
+
+        // If still no preference, use database
+        if (preferredLang == null && user != null && user.getPreferredLanguage() != null) {
+            preferredLang = user.getPreferredLanguage();
+        }
+
+        // Default to English if nothing set
+        if (preferredLang == null) {
+            preferredLang = "en";
+        }
+
+        // Set locale in session
+        Locale locale = "tr".equals(preferredLang) ? new Locale("tr") : Locale.ENGLISH;
+        localeResolver.setLocale(request, response, locale);
 
         // Redirect to dashboard
         response.sendRedirect("/dashboard");
