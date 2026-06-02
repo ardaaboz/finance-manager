@@ -88,7 +88,7 @@
 <div class="container mt-4">
     <div class="row mb-4">
         <div class="col">
-            <h2><i class="bi bi-calendar-check"></i> Bills & Payments</h2>
+            <h2><i class="bi bi-calendar-check"></i> <span th:text="#{bills.billsPayments}">Bills & Payments</span></h2>
         </div>
     </div>
 
@@ -98,14 +98,14 @@
             <a class="nav-link" th:classappend="${view == 'list'} ? 'active' : ''"
                th:href="@{/bills(view='list', filter=${filter})}"
                id="list-tab" role="tab">
-                <i class="bi bi-list-ul"></i> List View
+                <i class="bi bi-list-ul"></i> <span th:text="#{bills.listView}">List View</span>
             </a>
         </li>
         <li class="nav-item" role="presentation">
             <a class="nav-link" th:classappend="${view == 'calendar'} ? 'active' : ''"
                th:href="@{/bills(view='calendar', year=${year}, month=${month})}"
                id="calendar-tab" role="tab">
-                <i class="bi bi-calendar3"></i> Calendar View
+                <i class="bi bi-calendar3"></i> <span th:text="#{bills.calendarView}">Calendar View</span>
             </a>
         </li>
     </ul>
@@ -117,25 +117,25 @@
             <!-- Filter Section -->
             <div class="card mb-4">
                 <div class="card-header">
-                    <i class="bi bi-funnel"></i> Filter Bills
+                    <i class="bi bi-funnel"></i> <span th:text="#{bills.filterBills}">Filter Bills</span>
                 </div>
                 <div class="card-body">
                     <form th:action="@{/bills}" method="get" class="row g-3">
                         <input type="hidden" name="view" value="list">
                         <div class="col-md-6">
-                            <label for="filter" class="form-label">Show</label>
+                            <label for="filter" class="form-label" th:text="#{bills.show}">Show</label>
                             <select id="filter" name="filter" class="form-select" onchange="this.form.submit()">
-                                <option value="all" th:selected="${filter == 'all'}">All Bills</option>
-                                <option value="unpaid" th:selected="${filter == 'unpaid'}">Unpaid Only</option>
-                                <option value="paid" th:selected="${filter == 'paid'}">Paid Only</option>
-                                <option value="upcoming7" th:selected="${filter == 'upcoming7'}">Due in Next 7 Days</option>
-                                <option value="upcoming30" th:selected="${filter == 'upcoming30'}">Due in Next 30 Days</option>
-                                <option value="overdue" th:selected="${filter == 'overdue'}">Overdue</option>
+                                <option value="all" th:selected="${filter == 'all'}" th:text="#{bills.allBills}">All Bills</option>
+                                <option value="unpaid" th:selected="${filter == 'unpaid'}" th:text="#{bills.unpaidOnly}">Unpaid Only</option>
+                                <option value="paid" th:selected="${filter == 'paid'}" th:text="#{bills.paidOnly}">Paid Only</option>
+                                <option value="upcoming7" th:selected="${filter == 'upcoming7'}" th:text="#{bills.dueNext7}">Due in Next 7 Days</option>
+                                <option value="upcoming30" th:selected="${filter == 'upcoming30'}" th:text="#{bills.dueNext30}">Due in Next 30 Days</option>
+                                <option value="overdue" th:selected="${filter == 'overdue'}" th:text="#{status.overdue}">Overdue</option>
                             </select>
                         </div>
                         <div class="col-md-6 d-flex align-items-end">
                             <a href="/bills?view=list" class="btn btn-secondary">
-                                <i class="bi bi-x-circle"></i> Clear Filter
+                                <i class="bi bi-x-circle"></i> <span th:text="#{bills.clearFilter}">Clear Filter</span>
                             </a>
                         </div>
                     </form>
@@ -145,26 +145,26 @@
             <!-- Bills Table -->
             <div class="card">
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="bi bi-arrow-repeat"></i> Transactions</h5>
-                    <span class="badge bg-light text-dark" th:text="${#lists.size(bills)} + ' items'"></span>
+                    <h5 class="mb-0"><i class="bi bi-arrow-repeat"></i> <span th:text="#{bills.transactions}">Transactions</span></h5>
+                    <span class="badge bg-light text-dark" th:text="${#lists.size(bills)} + ' ' + #{bills.items}"></span>
                 </div>
                 <div class="card-body">
                     <div th:if="${#lists.isEmpty(bills)}">
                         <p class="text-muted mb-0">
-                            <i class="bi bi-info-circle"></i> No transactions found matching your filter.
+                            <i class="bi bi-info-circle"></i> <span th:text="#{bills.noTransactionsFilter}">No transactions found matching your filter.</span>
                         </p>
                     </div>
                     <div th:if="${!#lists.isEmpty(bills)}" class="table-responsive">
                         <table class="table table-hover">
                             <thead class="table-light">
                             <tr>
-                                <th>Description</th>
-                                <th>Amount</th>
-                                <th>Category</th>
-                                <th>Type</th>
-                                <th>Due Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th th:text="#{dashboard.description}">Description</th>
+                                <th th:text="#{dashboard.amount}">Amount</th>
+                                <th th:text="#{dashboard.category}">Category</th>
+                                <th th:text="#{dashboard.type}">Type</th>
+                                <th th:text="#{bills.dueDate}">Due Date</th>
+                                <th th:text="#{bills.status}">Status</th>
+                                <th th:text="#{bills.action}">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -172,11 +172,11 @@
                                 <td>
                                     <strong th:text="${bill.description}"></strong>
                                     <span th:if="${bill.recurring}" class="badge bg-info ms-1">
-                                                <i class="bi bi-arrow-repeat"></i> Recurring
+                                                <i class="bi bi-arrow-repeat"></i> <span th:text="#{dashboard.recurring}">Recurring</span>
                                             </span>
                                 </td>
                                 <td>
-                                    <strong th:text="'$' + ${#numbers.formatDecimal(bill.amount, 0, 'COMMA', 2, 'POINT')}"></strong>
+                                    <strong><span th:text="#{currency.symbol}">$</span><span th:text="${#numbers.formatDecimal(bill.amount, 0, 'COMMA', 2, 'POINT')}"></span></strong>
                                 </td>
                                 <td>
                                     <span class="badge bg-secondary" th:text="${bill.category}"></span>
@@ -192,16 +192,16 @@
                                     <span th:if="${!bill.recurring && bill.dueDate == null}">-</span>
 
                                     <span th:if="${bill.recurring && bill.nextDueDate != null && bill.nextDueDate.isBefore(today)}"
-                                          class="badge bg-danger ms-2">Overdue</span>
+                                          class="badge bg-danger ms-2" th:text="#{status.overdue}">Overdue</span>
                                     <span th:if="${!bill.recurring && bill.dueDate != null && bill.dueDate.isBefore(today) && !bill.paid}"
-                                          class="badge bg-danger ms-2">Overdue</span>
+                                          class="badge bg-danger ms-2" th:text="#{status.overdue}">Overdue</span>
                                 </td>
                                 <td>
                                             <span th:if="${bill.paid}" class="badge bg-success">
-                                                <i class="bi bi-check-circle"></i> Paid
+                                                <i class="bi bi-check-circle"></i> <span th:text="#{status.paid}">Paid</span>
                                             </span>
                                     <span th:if="${!bill.paid && (bill.recurring || bill.dueDate != null)}" class="badge bg-danger">
-                                                <i class="bi bi-x-circle"></i> Unpaid
+                                                <i class="bi bi-x-circle"></i> <span th:text="#{status.unpaid}">Unpaid</span>
                                             </span>
                                     <span th:if="${!bill.paid && !bill.recurring && bill.dueDate == null}">-</span>
                                 </td>
@@ -209,8 +209,8 @@
                                     <a th:if="${!bill.paid && (bill.recurring || bill.dueDate != null)}"
                                        th:href="@{/mark-paid(id=${bill.id}, filter=${filter}, view='list')}"
                                        class="btn btn-sm btn-success"
-                                       onclick="return confirm('Mark this as paid?')">
-                                        <i class="bi bi-check2"></i> Mark Paid
+                                       th:onclick="'return confirm(\'' + #{bills.markPaidConfirm} + '\');'">
+                                        <i class="bi bi-check2"></i> <span th:text="#{bills.markPaid}">Mark Paid</span>
                                     </a>
                                     <span th:if="${bill.paid || (!bill.recurring && bill.dueDate == null)}" class="text-muted">
                                                 -
@@ -235,11 +235,11 @@
                     <div>
                         <a th:href="@{/bills(view='calendar', year=${month == 1 ? year - 1 : year}, month=${month == 1 ? 12 : month - 1})}"
                            class="btn btn-sm btn-light">
-                            <i class="bi bi-chevron-left"></i> Previous
+                            <i class="bi bi-chevron-left"></i> <span th:text="#{bills.previous}">Previous</span>
                         </a>
                         <a th:href="@{/bills(view='calendar', year=${month == 12 ? year + 1 : year}, month=${month == 12 ? 1 : month + 1})}"
                            class="btn btn-sm btn-light">
-                            Next <i class="bi bi-chevron-right"></i>
+                            <span th:text="#{bills.next}">Next</span> <i class="bi bi-chevron-right"></i>
                         </a>
                     </div>
                 </div>
@@ -247,13 +247,13 @@
                     <!-- Calendar Grid -->
                     <div class="calendar">
                         <!-- Day Headers -->
-                        <div class="calendar-day-header">Mon</div>
-                        <div class="calendar-day-header">Tue</div>
-                        <div class="calendar-day-header">Wed</div>
-                        <div class="calendar-day-header">Thu</div>
-                        <div class="calendar-day-header">Fri</div>
-                        <div class="calendar-day-header">Sat</div>
-                        <div class="calendar-day-header">Sun</div>
+                        <div class="calendar-day-header" th:text="#{day.mon}">Mon</div>
+                        <div class="calendar-day-header" th:text="#{day.tue}">Tue</div>
+                        <div class="calendar-day-header" th:text="#{day.wed}">Wed</div>
+                        <div class="calendar-day-header" th:text="#{day.thu}">Thu</div>
+                        <div class="calendar-day-header" th:text="#{day.fri}">Fri</div>
+                        <div class="calendar-day-header" th:text="#{day.sat}">Sat</div>
+                        <div class="calendar-day-header" th:text="#{day.sun}">Sun</div>
 
                         <!-- Empty cells before first day -->
                         <div th:each="i : ${#numbers.sequence(1, firstDayOfWeek - 1)}"
@@ -284,38 +284,38 @@
                                     <i th:class="${trans.paid} ? 'bi bi-check-circle' : 'bi bi-x-circle'"></i>
                                     <strong th:text="${trans.description}"></strong>
                                     <br>
-                                    <small th:text="'$' + ${#numbers.formatDecimal(trans.amount, 0, 'COMMA', 2, 'POINT')}"></small>
+                                    <small><span th:text="#{currency.symbol}">$</span><span th:text="${#numbers.formatDecimal(trans.amount, 0, 'COMMA', 2, 'POINT')}"></span></small>
                                 </div>
                             </div>
 
                             <!-- Add hint -->
                             <div th:if="${!calendar.containsKey(day)}" class="add-transaction-hint">
-                                + Add
+                                + <span th:text="#{bills.add}">Add</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Legend -->
                     <div class="mt-4 p-3 bg-light rounded">
-                        <h6>Legend:</h6>
+                        <h6><span th:text="#{calendar.legend}">Legend</span>:</h6>
                         <div class="row">
                             <div class="col-md-3">
                                     <span class="calendar-bill calendar-bill-paid d-inline-block mb-2">
-                                        <i class="bi bi-check-circle"></i> Paid
+                                        <i class="bi bi-check-circle"></i> <span th:text="#{status.paid}">Paid</span>
                                     </span>
                             </div>
                             <div class="col-md-3">
                                     <span class="calendar-bill calendar-bill-unpaid d-inline-block mb-2">
-                                        <i class="bi bi-x-circle"></i> Unpaid
+                                        <i class="bi bi-x-circle"></i> <span th:text="#{status.unpaid}">Unpaid</span>
                                     </span>
                             </div>
                             <div class="col-md-3">
                                     <span class="calendar-bill calendar-bill-recurring calendar-bill-unpaid d-inline-block mb-2">
-                                        <i class="bi bi-x-circle"></i> Recurring
+                                        <i class="bi bi-x-circle"></i> <span th:text="#{dashboard.recurring}">Recurring</span>
                                     </span>
                             </div>
                             <div class="col-md-3">
-                                <small class="text-muted">Click day to add, click item to mark paid</small>
+                                <small class="text-muted" th:text="#{calendar.clickHint}">Click day to add, click item to mark paid</small>
                             </div>
                         </div>
                     </div>
@@ -326,7 +326,7 @@
 
     <div class="mt-3">
         <a href="/dashboard" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Back to Dashboard
+            <i class="bi bi-arrow-left"></i> <span th:text="#{bills.backToDashboard}">Back to Dashboard</span>
         </a>
     </div>
 </div>
@@ -364,7 +364,9 @@
                 const month = this.dataset.month;
 
                 if (!paid) {
-                    if (confirm('Mark this as paid?')) {
+                    const confirmMsg = document.querySelector('[th\\:text*="bills.markPaidConfirm"]');
+                    const message = confirmMsg ? confirmMsg.textContent : 'Mark this as paid?';
+                    if (confirm(message)) {
                         window.location.href = '/mark-paid?id=' + id + '&view=calendar&year=' + year + '&month=' + month;
                     }
                 }

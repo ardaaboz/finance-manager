@@ -13,8 +13,8 @@
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h4 class="mb-0">
-                        <i class="bi bi-plus-circle"></i> Quick Add Transaction
-                        <span th:if="${day != null}"> for <span th:text="${monthName}"></span> <span th:text="${day}"></span></span>
+                        <i class="bi bi-plus-circle"></i> <span th:text="#{quickAdd.title}">Quick Add Transaction</span>
+                        <span th:if="${day != null}"> <span th:text="#{transaction.quickAddFor}">for</span> <span th:text="${monthName}"></span> <span th:text="${day}"></span></span>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -25,15 +25,15 @@
 
                         <div class="mb-3">
                             <label for="description" class="form-label">
-                                <i class="bi bi-text-left"></i> Description
+                                <i class="bi bi-text-left"></i> <span th:text="#{transaction.description}">Description</span>
                             </label>
                             <input type="text" class="form-control" id="description"
-                                   name="description" placeholder="e.g., Loan Repayment" required>
+                                   name="description" th:placeholder="#{transaction.exampleLoan}" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="amount" class="form-label">
-                                <i class="bi bi-currency-dollar"></i> Amount
+                                <i class="bi bi-currency-dollar"></i> <span th:text="#{transaction.amount}">Amount</span>
                             </label>
                             <input type="number" class="form-control" id="amount"
                                    name="amount" step="0.01" min="0" placeholder="0.00" required>
@@ -41,59 +41,59 @@
 
                         <div class="mb-3">
                             <label for="type" class="form-label">
-                                <i class="bi bi-arrow-left-right"></i> Type
+                                <i class="bi bi-arrow-left-right"></i> <span th:text="#{transaction.type}">Type</span>
                             </label>
                             <select id="type" name="type" class="form-select" required>
-                                <option value="">-- Select Type --</option>
-                                <option value="INCOME">Income</option>
-                                <option value="EXPENSE">Expense</option>
+                                <option value="" th:text="#{transaction.selectType}">-- Select Type --</option>
+                                <option value="INCOME" th:text="#{type.income}">Income</option>
+                                <option value="EXPENSE" th:text="#{type.expense}">Expense</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label for="category" class="form-label">
-                                <i class="bi bi-tag"></i> Category
+                                <i class="bi bi-tag"></i> <span th:text="#{transaction.category}">Category</span>
                             </label>
                             <select id="category" name="category" class="form-select" required>
-                                <option value="">-- Select Category --</option>
-                                <option value="Salary">Salary</option>
-                                <option value="Freelance">Freelance</option>
+                                <option value="" th:text="#{transaction.selectCategory}">-- Select Category --</option>
+                                <option value="Salary" th:text="#{category.salary}">Salary</option>
+                                <option value="Freelance" th:text="#{category.freelance}">Freelance</option>
                                 <option value="Investment">Investment</option>
-                                <option value="Food">Food</option>
-                                <option value="Rent">Rent</option>
-                                <option value="Utilities">Utilities</option>
+                                <option value="Food" th:text="#{category.food}">Food</option>
+                                <option value="Rent" th:text="#{category.rent}">Rent</option>
+                                <option value="Utilities" th:text="#{category.utilities}">Utilities</option>
                                 <option value="Entertainment">Entertainment</option>
                                 <option value="Transportation">Transportation</option>
-                                <option value="Healthcare">Healthcare</option>
-                                <option value="Loan">Loan</option>
-                                <option value="Other">Other</option>
+                                <option value="Healthcare" th:text="#{category.healthcare}">Healthcare</option>
+                                <option value="Loan" th:text="#{category.loan}">Loan</option>
+                                <option value="Other" th:text="#{category.other}">Other</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label for="dueDate" class="form-label">
-                                <i class="bi bi-calendar-event"></i> Due Date
+                                <i class="bi bi-calendar-event"></i> <span th:text="#{transaction.dueDateRequired}">Due Date</span>
                             </label>
                             <input type="date" class="form-control" id="dueDate"
                                    name="dueDate" th:value="${defaultDueDate}" required>
-                            <small class="form-text text-muted">
+                            <small class="form-text text-muted" th:text="#{transaction.dueDateCalendarHint}">
                                 This transaction will appear on the calendar on this date
                             </small>
                         </div>
 
                         <div class="alert alert-info">
                             <i class="bi bi-info-circle"></i>
-                            <strong>Tip:</strong> Use this for one-time payments like borrowed money,
-                            loan installments, or any payment with a specific due date.
+                            <strong th:text="#{quickAdd.tip}">Tip: Use this for one-time payments like borrowed money,
+                            loan installments, or any payment with a specific due date.</strong>
                         </div>
 
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="bi bi-check-circle"></i> Add Transaction
+                                <i class="bi bi-check-circle"></i> <span th:text="#{transaction.add}">Add Transaction</span>
                             </button>
                             <a th:href="@{/bills(view='calendar', year=${year}, month=${month})}"
                                class="btn btn-secondary">
-                                <i class="bi bi-x-circle"></i> Cancel
+                                <i class="bi bi-x-circle"></i> <span th:text="#{transaction.cancel}">Cancel</span>
                             </a>
                         </div>
                     </form>
