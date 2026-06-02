@@ -9,53 +9,53 @@ A professional web-based financial management system built with Spring Boot, fea
 
 ## Overview
 
-Finance Manager is a comprehensive IT Capstone Project that helps individuals and families track their personal finances with support for both English and Turkish languages. The application provides transaction management, recurring bill tracking, interactive calendar views, and real-time financial dashboards—all available in the user's preferred language.
+Finance Manager is a comprehensive IT Capstone Project that helps individuals and families track their personal finances with support for both English and Turkish languages. The application provides transaction management, recurring bill tracking, interactive calendar views, and real-time financial dashboards, all available in the user's preferred language.
 
 ## Key Features
 
 ### Core Functionality
-* ✅ **Transaction Management**: Track income and expenses with detailed categorization
-* ✅ **Recurring Bills**: Automated monthly bill tracking with smart date handling
-* ✅ **Scheduled Transactions**: One-time transactions with specific due dates
-* ✅ **Financial Dashboard**: Real-time summary of income, expenses, and balance
-* ✅ **Interactive Calendar**: Visual bill calendar with list and calendar views
-* ✅ **Smart Filtering**: Filter transactions by type (income/expense) and category
-* ✅ **Payment Tracking**: Mark bills as paid with automatic next-due-date calculation
+* **Transaction Management**: Track income and expenses with detailed categorization
+* **Recurring Bills**: Automated monthly bill tracking with smart date handling
+* **Scheduled Transactions**: One-time transactions with specific due dates
+* **Financial Dashboard**: Real-time summary of income, expenses, and balance
+* **Interactive Calendar**: Visual bill calendar with list and calendar views
+* **Smart Filtering**: Filter transactions by type (income/expense) and category
+* **Payment Tracking**: Mark bills as paid with automatic next-due-date calculation
 
 ### Bilingual Support (NEW!)
-* 🌍 **Dual Language UI**: Complete English and Turkish translations
-* 🔄 **Easy Language Switching**: Dropdown selector on all pages
-* 💾 **Persistent Preference**: Language choice saved per user in database
-* 🎯 **Smart Date Handling**: Handles month-end edge cases for recurring bills
+* **Dual Language UI**: Complete English and Turkish translations
+* **Easy Language Switching**: Dropdown selector on all pages
+* **Persistent Preference**: Language choice saved per user in database
+* **Smart Date Handling**: Handles month-end edge cases for recurring bills
 
 ### Security & Quality
-* 🔐 **Secure Authentication**: BCrypt password encryption
-* 🛡️ **Authorization**: User data isolation with ownership validation
-* ✅ **Input Validation**: Comprehensive validation with custom exceptions
-* 📝 **Professional Documentation**: Full Javadoc and technical specs
-* 🏗️ **Clean Architecture**: MVC pattern with layered design
+* **Secure Authentication**: BCrypt password encryption
+* **Authorization**: User data isolation with ownership validation
+* **Input Validation**: Comprehensive validation with custom exceptions
+* **Professional Documentation**: Full Javadoc and technical specs
+* **Clean Architecture**: MVC pattern with layered design
 
 ## Technology Stack
 
 **Backend**
-* ☕ Java 17
-* 🍃 Spring Boot 3.5.6
-* 🔒 Spring Security 6 (Form-based authentication, BCrypt, CSRF protection)
-* 💾 Spring Data JPA with Hibernate
-* 🐘 PostgreSQL (production)
-* 🗄️ H2 Database (development)
-* 🌐 Spring i18n for internationalization
-* 📦 Maven for dependency management
+* Java 17
+* Spring Boot 3.5.6
+* Spring Security 6 (Form-based authentication, BCrypt, CSRF protection)
+* Spring Data JPA with Hibernate
+* PostgreSQL (production)
+* H2 Database (development)
+* Spring i18n for internationalization
+* Maven for dependency management
 
 **Frontend**
-* 🎨 Thymeleaf template engine
-* 🎭 Bootstrap 5.3.0 (responsive design)
-* 🎯 Bootstrap Icons 1.10.0
-* ⚡ Vanilla JavaScript
+* Thymeleaf template engine
+* Bootstrap 5.3.0 (responsive design)
+* Bootstrap Icons 1.10.0
+* Vanilla JavaScript
 
 **Deployment**
-* 🚂 Railway platform
-* 🔧 Maven build automation
+* Railway platform
+* Maven build automation
 
 ## Getting Started
 
@@ -74,7 +74,7 @@ cd finance-manager
 ./mvnw spring-boot:run
 
 # Or run with your IDE
-# Open project → Run FinanceManagerApplication.java
+# Open project Run FinanceManagerApplication.java
 ```
 
 **Access the application:** http://localhost:8080
@@ -115,18 +115,18 @@ cd finance-manager
 ```
 finance-manager/
 ├── src/main/java/com/example/financemanager/
-│   ├── config/          # Configuration classes (Security, i18n, Exception Handler)
-│   ├── controllers/     # HTTP request handlers (5 controllers)
-│   ├── services/        # Business logic layer (UserService, TransactionService)
-│   ├── repositories/    # Data access layer (JPA repositories)
-│   ├── entities/        # Domain models (User, Transaction)
-│   └── exceptions/      # Custom exception classes
+│ ├── config/ # Configuration classes (Security, i18n, Exception Handler)
+│ ├── controllers/ # HTTP request handlers (5 controllers)
+│ ├── services/ # Business logic layer (UserService, TransactionService)
+│ ├── repositories/ # Data access layer (JPA repositories)
+│ ├── entities/ # Domain models (User, Transaction)
+│ └── exceptions/ # Custom exception classes
 ├── src/main/resources/
-│   ├── templates/       # Thymeleaf HTML templates (9 pages)
-│   ├── messages_en.properties   # English translations
-│   ├── messages_tr.properties   # Turkish translations
-│   ├── application.properties   # Development config
-│   └── application-prod.properties  # Production config
+│ ├── templates/ # Thymeleaf HTML templates (9 pages)
+│ ├── messages_en.properties # English translations
+│ ├── messages_tr.properties # Turkish translations
+│ ├── application.properties # Development config
+│ └── application-prod.properties # Production config
 ├── TECHNICAL_SPECIFICATION.md
 ├── DEVELOPMENT_GUIDE.md
 ├── PITFALLS_AND_CHALLENGES.md
@@ -135,7 +135,7 @@ finance-manager/
 
 ## Documentation
 
-📚 **Comprehensive technical documentation is available:**
+ **Comprehensive technical documentation is available:**
 
 * **[TECHNICAL_SPECIFICATION.md](TECHNICAL_SPECIFICATION.md)** - Complete architecture, database schema, API endpoints, security implementation, and i18n details
 * **[DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md)** - Setup instructions, development workflow, testing, deployment, and troubleshooting
@@ -143,9 +143,9 @@ finance-manager/
 
 ## Security Features
 
-* 🔐 **Password Security**: BCrypt encryption with 10 rounds
-* 🛡️ **CSRF Protection**: Enabled on all state-changing operations
-* 👤 **User Isolation**: Authorization checks ensure users can only access their own data
-* ✅ **Input Validation**: Jakarta Validation annotations on all user inputs
-* 🚫 **Custom Exceptions**: Proper error handling with user-friendly messages
-* 📝 **Audit Trail**: Created dates tracked for all transactions
+* **Password Security**: BCrypt encryption with 10 rounds
+* **CSRF Protection**: Enabled on all state-changing operations
+* **User Isolation**: Authorization checks ensure users can only access their own data
+* **Input Validation**: Jakarta Validation annotations on all user inputs
+* **Custom Exceptions**: Proper error handling with user-friendly messages
+* **Audit Trail**: Created dates tracked for all transactions
